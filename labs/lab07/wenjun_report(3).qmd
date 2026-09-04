@@ -1,0 +1,177 @@
+---
+title: "Лабораторная работа №7. Анализ файловой системы Linux. Команды для работы с файлами и каталогами"
+author: "Чжан Вэньцзюнь"
+date: "2026-03-27"
+number: "1132259051"
+format:
+  pdf:
+    documentclass: article
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    pdf-engine: xelatex
+lang: ru
+---
+
+## 1. Цель работы
+
+- Ознакомление с файловой системой Linux и её структурой  
+- Освоение команд работы с файлами и каталогами  
+- Изучение прав доступа (`chmod`)  
+- Анализ файловой системы (`mount`, `df`, `fstab`)  
+
+---
+
+## 2. Порядок выполнения работы и результаты
+
+### 2.1 Подготовка рабочего окружения
+
+![](images/lab07_01_create_directory.png)
+
+cd ~/work/study/2026-2027/Операционные системы/os-intro/labs/lab07  
+pwd  
+
+Результат: рабочая директория создана и активирована  
+
+---
+
+### 2.2 Операции с файлами и каталогами
+
+#### Копирование файла
+
+![](images/lab07_02_copy_file.png)
+
+cp /usr/include/stdio.h ~/equipment  
+ls -l ~/equipment  
+
+---
+
+#### Создание каталога
+
+![](images/lab07_03_create_directory.png)
+
+mkdir ~/ski.plases  
+
+---
+
+#### Перемещение файла
+
+![](images/lab07_04_move_file.png)
+
+mv ~/equipment ~/ski.plases/  
+
+---
+
+#### Переименование файла
+
+![](images/lab07_05_rename_file.png)
+
+mv ~/ski.plases/equipment ~/ski.plases/equiplist  
+
+---
+
+#### Создание и копирование файла
+
+![](images/lab07_06_create_and_copy.png)
+
+touch ~/abc1  
+cp ~/abc1 ~/ski.plases/equiplist2  
+
+---
+
+#### Вложенный каталог
+
+![](images/lab07_07_create_subdir.png)
+
+mkdir ~/ski.plases/equipment  
+
+---
+
+#### Перемещение нескольких файлов
+
+![](images/lab07_08_move_multiple.png)
+
+mv ~/ski.plases/equiplist ~/ski.plases/equiplist2 ~/ski.plases/equipment/  
+
+---
+
+#### Перемещение и переименование каталога
+
+![](images/lab07_09_move_rename_dir.png)
+
+mkdir ~/newdir  
+mv ~/newdir ~/ski.plases/plans  
+
+---
+
+### 2.3 Права доступа
+
+![](images/lab07_11_chmod_symbolic.png)
+
+touch australia play my_os feathers  
+
+chmod 744 australia  
+chmod 711 play  
+chmod 544 my_os  
+chmod 664 feathers  
+ls -l  
+
+---
+
+### 2.4 Анализ файловой системы
+
+![](images/lab07_12_mount.png)
+
+mount | head -10  
+
+---
+
+![](images/lab07_13_df.png)
+
+df -h  
+
+---
+
+![](images/lab07_14_fstab.png)
+
+cat /etc/fstab  
+
+---
+
+## 3. Ответы на вопросы
+
+Просмотр файлов:
+cat  
+less  
+head  
+tail  
+
+mv:
+перемещение и переименование файлов и каталогов  
+
+Права доступа:
+r w x  
+chmod 755 file  
+chmod u+x file  
+
+Файловые системы:
+ext4  
+xfs  
+ntfs  
+tmpfs  
+proc  
+
+df:
+df -h  
+
+fsck:
+sudo fsck /dev/sda1  
+
+---
+
+## 4. Выводы
+
+- Изучена структура файловой системы Linux  
+- Освоены команды cp, mv, mkdir, touch  
+- Освоено управление правами доступа  
+- Изучены mount, df, fstab  
