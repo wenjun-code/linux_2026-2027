@@ -1,0 +1,337 @@
+---
+title: "Лабораторная работа №2. Первоначальная настройка Git"
+author: "Чжан Вэньцзюнь"
+date: "2026-03-01"
+format:
+  pdf:
+    documentclass: article
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    latex-engine: xelatex
+    lang: ru
+---
+
+number: "1132259051"
+
+# 1. Цель работы
+
+- Изучить основные принципы систем контроля версий.
+- Освоить базовые команды Git.
+- Настроить глобальную конфигурацию Git.
+- Создать SSH и PGP ключи.
+- Настроить автоматическую подпись коммитов.
+- Подготовить рабочее пространство для курса.
+
+# 2. Порядок выполнения работы и результаты
+
+## 2.1 Установка программного обеспечения
+
+### 2.1.1 Установка Git
+
+![Установка Git](images/01_git_installed.png)
+
+**Команда:**
+
+```bash
+sudo dnf install git
+```
+
+**Результат:** Git успешно установлен и готов к использованию.
+
+### 2.1.2 Установка GitHub CLI
+
+![Установка GitHub CLI](images/02_gh_installed.png)
+
+**Команда:**
+
+```bash
+sudo dnf install gh
+```
+
+**Результат:** GitHub CLI установлен.
+
+## 2.2 Базовая настройка Git
+
+![Конфигурация Git](images/03_git_config.png)
+
+**Команды:**
+
+```bash
+git config --global user.name "Zhang Wenjun"
+git config --global user.email "wenjun@example.com"
+git config --global core.quotepath false
+git config --global init.defaultBranch main
+git config --global core.autocrlf input
+git config --global core.safecrlf warn
+git config --global --list
+```
+
+**Результат:** Выполнена базовая настройка Git.
+
+## 2.3 Создание SSH-ключей
+
+### RSA-ключ
+
+![RSA ключ](images/04_ssh_rsa.png)
+
+```bash
+ssh-keygen -t rsa -b 4096 -C "wenjun@example.com"
+```
+
+### Ed25519-ключ
+
+![Ed25519 ключ](images/05_ssh_ed25519.png)
+
+```bash
+ssh-keygen -t ed25519 -C "wenjun@example.com"
+```
+
+**Результат:** Созданы SSH-ключи для безопасной аутентификации.
+
+## 2.4 Создание PGP-ключа
+
+![Создание PGP](images/06_gpg_create.png)
+
+```bash
+gpg --full-generate-key
+```
+
+Параметры:
+
+- Тип: RSA and RSA
+- Размер: 4096 бит
+- Срок действия: не ограничен
+- Имя: Zhang Wenjun
+
+![Список ключей](images/07_gpg_list.png)
+
+```bash
+gpg --list-secret-keys --keyid-format LONG
+```
+
+**Результат:** Создан персональный PGP-ключ.
+
+## 2.5 Настройка GitHub
+
+### Добавление SSH-ключа
+
+![GitHub SSH](images/09_github_ssh.png)
+
+```bash
+cat ~/.ssh/id_ed25519.pub
+```
+
+Добавить ключ в:
+
+Settings → SSH and GPG Keys → New SSH Key
+
+### Добавление PGP-ключа
+
+![GitHub GPG](images/10_github_gpg.png)
+
+```bash
+gpg --armor --export <KEY_ID>
+```
+
+Добавить ключ в:
+
+Settings → SSH and GPG Keys → New GPG Key
+
+### Подпись коммитов
+
+![Настройка подписи](images/11_git_signing_config.png)
+
+```bash
+git config --global user.signingkey <KEY_ID>
+git config --global commit.gpgsign true
+git config --global gpg.program $(which gpg)
+```
+
+**Результат:** Все коммиты подписываются автоматически.
+
+## 2.6 Авторизация GitHub CLI
+
+![Авторизация](images/12_gh_auth.png)
+
+```bash
+gh auth login
+```
+
+Параметры:
+
+- GitHub.com
+- SSH
+- Login with a web browser
+
+**Результат:** Успешная авторизация пользователя GitHub `wenjun`.
+
+## 2.7 Создание репозитория курса
+
+### Создание рабочей директории
+
+```bash
+mkdir -p ~/work/study/2026-2027/"Операционные системы"
+cd ~/work/study/2026-2027/"Операционные системы"
+```
+
+### Создание репозитория
+
+```bash
+gh repo create study_2026-2027_os-intro \
+--template=yamadharma/course-directory-student-template \
+--public
+```
+
+### Клонирование репозитория
+
+```bash
+git clone --recursive \
+git@github.com:wenjun/study_2026-2027_os-intro.git \
+os-intro
+```
+
+### Настройка структуры
+
+```bash
+cd os-intro
+rm package.json
+echo os-intro > COURSE
+make
+```
+
+### Первый коммит
+
+```bash
+git add .
+git commit -m "feat(main): create course structure"
+git push
+```
+
+**Результат:** Репозиторий успешно создан и опубликован.
+
+## 2.8 Проверка подписанных коммитов
+
+Открыть страницу репозитория GitHub и убедиться, что рядом с коммитами отображается отметка **Verified**.
+
+# 3. Ответы на контрольные вопросы
+
+## 1. Что такое система контроля версий?
+
+Система контроля версий (VCS) — это программное обеспечение для хранения истории изменений файлов и совместной работы над проектами.
+
+## 2. Что такое repository, commit, history и working copy?
+
+- Repository — хранилище проекта.
+- Commit — зафиксированное изменение.
+- History — история изменений.
+- Working copy — рабочая копия файлов.
+
+## 3. Централизованные и распределённые VCS
+
+**Централизованные:**
+
+- SVN
+- CVS
+
+**Распределённые:**
+
+- Git
+- Mercurial
+
+Главное отличие — наличие полной локальной копии репозитория у каждого пользователя.
+
+## 4. Работа с локальным репозиторием
+
+Основные действия:
+
+```bash
+git init
+git add .
+git commit -m "message"
+git log
+```
+
+## 5. Работа с общим репозиторием
+
+Основные действия:
+
+```bash
+git pull
+git add .
+git commit -m "message"
+git push
+```
+
+## 6. Основные задачи Git
+
+- Хранение версий файлов.
+- Контроль изменений.
+- Работа с ветками.
+- Совместная разработка.
+- Возможность отката изменений.
+
+## 7. Основные команды Git
+
+| Команда | Назначение |
+|----------|------------|
+| git init | создание репозитория |
+| git clone | клонирование |
+| git add | добавление файлов |
+| git commit | фиксация изменений |
+| git status | просмотр состояния |
+| git log | история коммитов |
+| git branch | управление ветками |
+| git merge | объединение веток |
+| git pull | получение изменений |
+| git push | отправка изменений |
+
+## 8. Примеры работы
+
+Локально:
+
+```bash
+git init
+git add .
+git commit -m "Initial commit"
+```
+
+Удалённо:
+
+```bash
+git clone git@github.com:wenjun/repository.git
+git pull
+git push
+```
+
+## 9. Для чего нужны ветки?
+
+Ветки позволяют независимо разрабатывать новые функции, исправлять ошибки и тестировать изменения.
+
+## 10. Для чего нужен .gitignore?
+
+Файл `.gitignore` позволяет исключать временные, служебные и конфиденциальные файлы из репозитория.
+
+Пример:
+
+```text
+*.log
+*.tmp
+node_modules/
+.env
+```
+
+# 4. Выводы
+
+В ходе выполнения лабораторной работы были изучены основы работы с Git и GitHub.
+
+Получены практические навыки:
+
+- установки Git и GitHub CLI;
+- настройки глобальной конфигурации Git;
+- создания SSH и PGP ключей;
+- настройки подписи коммитов;
+- работы с удалёнными репозиториями GitHub;
+- выполнения основных операций Git.
+
+В результате была подготовлена полноценная среда для дальнейшей работы по курсу «Операционные системы».
