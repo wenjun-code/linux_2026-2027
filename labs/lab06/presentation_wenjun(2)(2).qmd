@@ -1,0 +1,106 @@
+---
+title: "Лабораторная работа №6"
+subtitle: "Основы интерфейса взаимодействия пользователя с системой Unix"
+author: "Чжан Вэньцзюнь"
+institute: "РУДН"
+date: "2026-03-19"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Освоение командной строки Unix  
+- Работа с файлами и каталогами  
+- Изучение базовых команд  
+
+---
+
+## Навигация по системе
+
+![](images/lab06_01_pwd.png)
+
+pwd  
+cd /tmp  
+cd ~
+
+---
+
+## Просмотр файлов
+
+![](images/lab06_03_ls_tmp.png)
+
+ls  
+ls -l  
+ls -a  
+ls -F  
+
+---
+
+## Работа с каталогами
+
+![](images/lab06_06_mkdir_newdir.png)
+
+mkdir newdir  
+mkdir newdir/morefun  
+rm -r newdir  
+
+---
+
+## Ошибки и особенности
+
+![](images/lab06_10_rm_newdir.png)
+
+rm newdir  # ошибка  
+rm -r newdir  # правильно  
+
+---
+
+## Дополнительные возможности
+
+ls -R      # рекурсивный вывод  
+ls -lt     # сортировка по времени  
+man ls     # справка  
+
+---
+
+## История команд
+
+![](images/lab06_19_history.png)
+
+history  
+!3  
+!3:s/a/F  
+
+---
+
+## Пути и экранирование
+
+cd /home/user/dir   # абсолютный путь  
+cd dir              # относительный путь  
+
+touch Мой\ файл.txt  
+echo "Цена \$100"  
+
+---
+
+## Выводы
+
+- Освоены базовые команды `cd`, `pwd`, `ls`  
+- Получены навыки работы с каталогами  
+- Изучена справочная система `man`  
+- Освоена история команд  
+- Поняты пути и экранирование  
+
+---
+
+## Спасибо за внимание!
