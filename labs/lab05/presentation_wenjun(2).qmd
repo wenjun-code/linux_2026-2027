@@ -1,0 +1,314 @@
+---
+title: "Лабораторная работа №4"
+subtitle: "Продвинутое использование Git"
+author: "Чжан Вэньцзюнь"
+institute: "РУДН"
+date: "2026-03-07"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+number: "1132259051"
+---
+
+## Цель работы
+
+- Получить практические навыки работы с системой контроля версий Git
+- Освоить модель разработки Gitflow Workflow
+- Изучить принципы семантического версионирования (SemVer)
+- Ознакомиться со стандартом Conventional Commits
+- Настроить автоматическую генерацию CHANGELOG.md
+
+## Подготовка рабочего окружения
+
+Для выполнения работы были установлены следующие инструменты:
+
+- git-flow
+- Node.js
+- npm
+- pnpm
+- commitizen
+- standard-changelog
+- GitHub CLI
+
+![Установка программного обеспечения](images/lab04_01_install_software.png)
+
+## Создание репозитория
+
+На GitHub был создан новый репозиторий:
+
+```text
+git-extended
+```
+
+Локальная инициализация:
+
+```bash
+git init
+git remote add origin git@github.com:wenjun/git-extended.git
+
+echo "# Git Extended Lab" > README.md
+
+git add README.md
+git commit -m "first commit"
+
+git branch -M master
+git push -u origin master
+```
+
+![Первый коммит](images/lab04_04_first_commit.png)
+
+## Настройка проекта Node.js
+
+Создание файла package.json:
+
+```bash
+pnpm init
+```
+
+Настройка Commitizen:
+
+```json
+{
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  }
+}
+```
+
+![Настройка Commitizen](images/lab04_06_edit_package.png)
+
+## Conventional Commits
+
+Для создания стандартизированных сообщений использовалась команда:
+
+```bash
+git cz
+```
+
+Первый коммит был создан с типом:
+
+```text
+chore
+```
+
+Преимущества использования Conventional Commits:
+
+- единый стиль сообщений
+- автоматическая генерация CHANGELOG
+- удобное управление версиями
+
+![Создание Conventional Commit](images/lab04_07_git_cz.png)
+
+## Инициализация Gitflow
+
+Запуск Gitflow:
+
+```bash
+git flow init
+```
+
+Использованы настройки:
+
+- master — основная ветка релизов
+- develop — ветка разработки
+- feature/* — функциональные ветки
+- release/* — ветки релизов
+- hotfix/* — ветки исправлений
+
+Отправка веток:
+
+```bash
+git push --all
+```
+
+![Gitflow Init](images/lab04_09_git_flow_init.png)
+
+## Создание релиза v1.0.0
+
+Создание релизной ветки:
+
+```bash
+git flow release start 1.0.0
+```
+
+Генерация CHANGELOG:
+
+```bash
+standard-changelog --first-release
+```
+
+Завершение релиза:
+
+```bash
+git flow release finish 1.0.0
+```
+
+Публикация тегов:
+
+```bash
+git push --tags
+```
+
+Создание релиза на GitHub:
+
+```bash
+gh release create v1.0.0 -F CHANGELOG.md
+```
+
+![Первый релиз](images/lab04_16_gh_release.png)
+
+## Работа с Feature-веткой
+
+Создание новой функциональности:
+
+```bash
+git flow feature start feature_branch
+```
+
+Создание файла:
+
+```bash
+echo "console.log('new feature');" > new-feature.js
+```
+
+Коммит изменений:
+
+```bash
+git cz
+```
+
+Тип коммита:
+
+```text
+feat
+```
+
+Завершение разработки:
+
+```bash
+git flow feature finish feature_branch
+```
+
+![Разработка новой функции](images/lab04_18_feature_commit.png)
+
+## Создание релиза v1.2.3
+
+Обновление версии:
+
+```json
+"version": "1.2.3"
+```
+
+Обновление CHANGELOG:
+
+```bash
+standard-changelog
+```
+
+Завершение релиза:
+
+```bash
+git flow release finish 1.2.3
+```
+
+Отправка изменений:
+
+```bash
+git push --all
+git push --tags
+```
+
+Публикация релиза:
+
+```bash
+gh release create v1.2.3 -F CHANGELOG.md
+```
+
+![Релиз v1.2.3](images/lab04_27_gh_release_123.png)
+
+## Просмотр истории проекта
+
+Для анализа истории использовалась команда:
+
+```bash
+git log --oneline --graph --all
+```
+
+Она позволяет наглядно отобразить:
+
+- историю коммитов
+- ветвление проекта
+- теги релизов
+- операции слияния
+
+![История репозитория](images/lab04_28_git_log.png)
+
+## Gitflow Workflow
+
+Основные ветки:
+
+- master
+- develop
+
+Дополнительные ветки:
+
+- feature/*
+- release/*
+- hotfix/*
+
+Преимущества Gitflow:
+
+- разделение процессов разработки и выпуска
+- удобная работа в команде
+- контроль стабильности проекта
+- прозрачная история изменений
+
+## Семантическое версионирование
+
+Стандарт SemVer использует формат:
+
+```text
+MAJOR.MINOR.PATCH
+```
+
+Где:
+
+- MAJOR — несовместимые изменения
+- MINOR — новая функциональность
+- PATCH — исправление ошибок
+
+Примеры:
+
+```text
+1.0.0
+1.2.3
+2.0.0
+```
+
+Связь с Conventional Commits:
+
+- feat → MINOR
+- fix → PATCH
+- BREAKING CHANGE → MAJOR
+
+## Выводы
+
+В ходе выполнения лабораторной работы были получены практические навыки использования Git и Gitflow Workflow.
+
+Освоены основные принципы семантического версионирования и стандарта Conventional Commits. Настроена автоматическая генерация файла CHANGELOG.md, выполнена работа с тегами и публикацией релизов на GitHub.
+
+Также были закреплены навыки управления ветками проекта, создания релизов и организации процесса коллективной разработки программного обеспечения.
+
+Все поставленные задачи лабораторной работы выполнены успешно.
+
+Спасибо за внимание!
