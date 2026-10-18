@@ -1,0 +1,138 @@
+---
+title: "Лабораторная работа №2"
+subtitle: "Первоначальная настройка git"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-03-02"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Изучение идеологии и применение средств контроля версий
+- Освоение базовых навыков работы с git
+- Настройка базовой конфигурации git
+- Создание ключей SSH и PGP для аутентификации и подписи коммитов
+- Настройка автоматической подписи коммитов
+- Создание репозитория курса на основе шаблона
+
+## Установка ПО и базовая настройка git
+
+- **Установка git и gh**: `sudo dnf install git gh`
+
+![Установка git](images/01_git_installed.png)
+
+- **Базовая конфигурация**: 
+  ```bash
+  git config --global user.name "Wang Haojian"
+  git config --global user.email ""
+  git config --global core.quotepath false
+  git config --global init.defaultBranch master
+  git config --global core.autocrlf input
+  git config --global core.safecrlf warn
+  ```
+
+![Глобальная конфигурация git](images/03_git_config.png)
+
+
+## Создание ключей SSH
+
+- **RSA 4096 бит**: `ssh-keygen -t rsa -b 4096 -C ""`
+- **Ed25519**: `ssh-keygen -t ed25519 -C ""`
+
+![Создание Ed25519 ключа](images/05_ssh_ed25519.png)
+
+- Ключи сохраняются в директории `~/.ssh/`
+
+## Создание PGP ключа
+
+- **Генерация ключа**: `gpg --full-generate-key`
+- **Параметры ключа**: тип RSA and RSA, размер 4096 бит, срок действия бессрочно, имя Wang Haojian, email 
+- **Просмотр и экспорт**: 
+  ```bash
+  gpg --list-secret-keys --keyid-format LONG
+  gpg --armor --export <fingerprint>
+  ```
+
+## Настройка GitHub
+
+- Добавление SSH ключа в аккаунт GitHub (Settings → SSH and GPG keys)
+- Добавление PGP ключа для подписи коммитов
+
+- **Настройка автоматической подписи**: 
+  ```bash
+  git config --global user.signingkey <fingerprint>
+  git config --global commit.gpgsign true
+  git config --global gpg.program $(which gpg2)
+  ```
+
+## Настройка GitHub CLI
+
+- **Авторизация в gh**: `gh auth login`
+
+![Авторизация в gh](images/12_gh_auth.png)
+
+- **Параметры авторизации**: протокол SSH, загрузка SSH ключа Yes, метод через браузер
+
+## Создание репозитория курса
+
+- **Создание рабочей директории**: 
+  ```bash
+  mkdir -p ~/work/study/2026-2027/"Операционные системы"
+  cd ~/work/study/2026-2027/"Операционные системы"
+  ```
+- **Создание репозитория из шаблона**: 
+  ```bash
+  gh repo create study_2026-2027_os-intro --template=yamadharma/course-directory-student-template --public
+  ```
+
+## Клонирование и настройка
+
+- **Клонирование репозитория**: 
+  ```bash
+  git clone --recursive git@github.com:haoczan2/study_2026-2027_os-intro.git os-intro
+  cd os-intro
+  ```
+- **Настройка структуры курса**: 
+  ```bash
+  rm package.json
+  echo os-intro > COURSE
+  make
+  ```
+
+## Первый коммит
+
+- **Добавление файлов и коммит**: 
+  ```bash
+  git add .
+  git commit -am 'feat(main): make course structure'
+  git push
+  ```
+- **Результат**: Подписанный коммит с меткой "Verified" на GitHub
+
+## Выводы
+
+- Установлены и настроены git и gh
+- Созданы SSH ключи для безопасной аутентификации
+
+- Создан PGP ключ для подписи коммитов
+
+- Настроена автоматическая подпись всех коммитов
+
+- Выполнена интеграция с GitHub
+
+- Cоздан репозиторий курса на основе шаблона
+
+- Выполнен первый подписанный коммит
+
+Спасибо за внимание!
