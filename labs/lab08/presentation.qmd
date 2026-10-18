@@ -1,0 +1,143 @@
+---
+title: "Лабораторная работа №8"
+subtitle: "Поиск файлов и управление процессами"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-04-04"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Поиск файлов и фильтрация  
+- Перенаправление ввода-вывода  
+- Работа с процессами  
+- Анализ диска  
+
+---
+
+## Подготовка
+
+![](images/lab08_01_whoami_pwd.png)
+
+```bash
+whoami
+pwd
+cd ~/lab08
+```
+
+---
+
+## Перенаправление вывода
+
+![](images/lab08_02_create_file_txt.png)
+
+```bash
+ls /etc > file.txt
+ls ~ >> file.txt
+```
+
+- `>` перезапись  
+- `>>` добавление  
+
+---
+
+## Поиск файлов
+
+![](images/lab08_03_grep_conf.png)
+
+```bash
+grep ".conf$" file.txt
+find ~ -name "*.txt"
+```
+
+- Фильтрация (`grep`)  
+- Поиск (`find`)  
+
+---
+
+## Конвейеры
+
+```bash
+ls -la | grep ".conf"
+```
+
+- Передача вывода между командами  
+
+---
+
+## Просмотр данных
+
+![](images/lab08_05_less_h.png)
+
+```bash
+ls /etc/h* | less
+```
+
+- Постраничный просмотр  
+
+---
+
+## Фоновые процессы
+
+![](images/lab08_06_background_find.png)
+
+```bash
+find ~ -name "log*" &
+jobs
+```
+
+- Запуск в фоне  
+- Контроль задач  
+
+---
+
+## Управление процессами
+
+![](images/lab08_09_get_pid.png)
+
+```bash
+ps aux | grep gedit
+kill <PID>
+```
+
+- Поиск процесса  
+- Завершение  
+
+---
+
+## Анализ диска
+
+![](images/lab08_12_df_du.png)
+
+```bash
+df -h
+du -sh ~
+```
+
+- Свободное место  
+- Размер каталогов  
+
+---
+
+## Выводы
+
+- Освоены перенаправления (`>`, `>>`)  
+- Изучены конвейеры (`|`)  
+- Освоены `find` и `grep`  
+- Изучено управление процессами  
+- Освоены `df` и `du`  
+
+---
+
+## Спасибо за внимание!
