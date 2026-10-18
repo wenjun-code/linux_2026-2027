@@ -1,0 +1,138 @@
+---
+title: "Лабораторная работа №5"
+subtitle: "Менеджер паролей pass и управление файлами конфигурации"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-03-15"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Изучение менеджера паролей `pass`
+- Получение навыков работы с GPG-ключами
+- Освоение семантической структуры базы паролей
+- Настройка синхронизации паролей через Git
+- Изучение системы управления конфигурациями `chezmoi`
+- Освоение работы с шаблонами
+
+## Установка ПО
+
+- **Установка pass**: `sudo apt install pass pass-otp -y`
+- **Установка chezmoi**: 
+  ```bash
+  sh -c "$(wget -qO- get.chezmoi.io)" -- -b ~/bin
+  echo 'export PATH=$PATH:$HOME/bin' >> ~/.bashrc
+  ```
+
+![Установка pass и chezmoi](images/lab05_01_install_software.png)
+
+## Подготовка GPG-ключа
+
+- **Проверка наличия ключей**: `gpg --list-secret-keys`
+- **Создание ключа**: `gpg --full-generate-key`
+
+![Создание GPG ключа](images/lab05_03_gpg_list.png)
+
+## Инициализация pass
+
+- **Инициализация хранилища**: 
+  ```bash
+  pass init ""
+  ```
+
+![Инициализация pass](images/lab05_04_pass_init.png)
+
+- **Настройка Git синхронизации**:
+  ```bash
+  pass git init
+  pass git remote add origin git@github.com:haoczan2/password-store.git
+  ```
+
+## Работа с паролями
+
+- **Добавление паролей**:
+  ```bash
+  pass insert example.com
+  pass insert work/company-email
+  ```
+
+![Добавление паролей](images/lab05_06_pass_insert.png)
+
+- **Генерация пароля**: `pass generate github 20`
+- **Просмотр паролей**: `pass`
+- **Копирование в буфер**: `pass -c example.com`
+
+## Настройка browserpass
+
+- **Установка native хоста**: 
+  ```bash
+  sudo apt install webext-browserpass -y
+  ```
+
+![Установка browserpass](images/lab05_10_browserpass_install.png)
+
+- **Установка расширения** в браузере Chrome
+
+## Установка chezmoi
+
+- **Проверка установки**: `chezmoi --version`
+
+![Версия chezmoi](images/lab05_12_chezmoi_version.png)
+
+- **Инициализация с репозиторием**:
+  ```bash
+  chezmoi init git@github.com:haoczan2/dotfiles.git
+  ```
+
+## Работа с chezmoi
+
+- **Применение изменений**: `chezmoi apply -v`
+- **Просмотр переменных**: `chezmoi data`
+
+![Переменные шаблонов](images/lab05_16_chezmoi_data.png)
+
+## Создание шаблонов
+
+- **Тестовый шаблон**:
+  ```bash
+  echo 'Имя хоста: {{ .chezmoi.hostname }}' > test.tmpl
+  chezmoi execute-template < test.tmpl
+  ```
+
+![Тестирование шаблона](images/lab05_18_template_test.png)
+
+- **Добавление файла как шаблона**: 
+  ```bash
+  chezmoi add --template ~/.bashrc
+  ```
+
+## Ежедневные операции
+
+- **Обновление**: `chezmoi update -v`
+- **Редактирование**: `chezmoi edit ~/.bashrc --apply`
+- **Статус**: `chezmoi status`
+- **Просмотр изменений**: `chezmoi diff`
+
+![Статус chezmoi](images/lab05_24_chezmoi_status.png)
+
+## Выводы
+
+- Установлен и настроен менеджер паролей `pass`
+- Создан GPG-ключ для шифрования паролей
+- Настроена синхронизация паролей через Git
+- Установлено браузерное расширение browserpass
+- Изучена система управления конфигурациями chezmoi
+- Освоено создание и тестирование шаблонов
+- Выполнены все операции по управлению паролями и конфигурациями
+Спасибо за внимание!
