@@ -1,0 +1,187 @@
+---
+title: "Лабораторная работа №14"
+subtitle: "Программирование в оболочке ОС UNIX"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-05-14"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Изучить bash-скрипты
+- Освоить циклы и условия
+- Реализовать семафоры
+- Создать аналог команды man
+- Генерировать случайные последовательности
+
+---
+
+## Задание 1: Семафоры
+
+### Идея
+
+- блокировка через `mkdir`
+- ожидание ресурса
+- освобождение после использования
+
+```bash
+while [ $waited -lt $t1 ]; do
+    if mkdir "$lockfile"; then
+        sleep $t2
+        rmdir "$lockfile"
+        exit 0
+    fi
+done
+```
+
+---
+
+## Результат semaphore.sh
+
+```text
+Процесс получил ресурс
+Процесс освобождает ресурс
+```
+
+![](images/lab14_02_semaphore_output.png)
+
+---
+
+## Задание 2: Аналог команды man
+
+### Скрипт myman.sh
+
+```bash
+manpage="/usr/share/man/man1/${1}.1.gz"
+
+if [ -f "$manpage" ]; then
+    zless "$manpage"
+else
+    echo "Справка не найдена"
+fi
+```
+
+---
+
+## Тестирование myman.sh
+
+### Команда существует
+
+```bash
+./myman.sh ls
+```
+
+### Команда отсутствует
+
+```bash
+./myman.sh test123
+```
+
+![](images/lab14_04_myman_ls.png)
+
+---
+
+## Задание 3: Случайные последовательности
+
+### random_letters.sh
+
+```bash
+letters="abcdefghijklmnopqrstuvwxyz"
+
+for ((i=0; i<length; i++)); do
+    idx=$((RANDOM % 26))
+    result="${result}${letters:idx:1}"
+done
+```
+
+---
+
+## Результат работы
+
+```bash
+./random_letters.sh
+```
+
+Вывод:
+
+```text
+kxmzowpqrbvcnthgejdsa
+```
+
+![](images/lab14_07_random_output.png)
+
+---
+
+## Контрольные вопросы
+
+### while
+
+```bash
+while [ "$1" != "exit" ]
+```
+
+### seq
+
+```bash
+echo {1..10}
+```
+
+### Деление
+
+```bash
+$((10 / 3))
+```
+
+Результат:
+
+```text
+3
+```
+
+---
+
+## Отличия zsh и bash
+
+- лучшее автодополнение
+- расширенные glob-шаблоны
+- гибкая настройка интерфейса
+
+---
+
+## Преимущества bash
+
+- автоматизация задач
+- встроен в Linux
+- не требует компиляции
+
+Недостатки:
+
+- сложный синтаксис
+- медленная работа
+
+---
+
+## Выводы
+
+В ходе работы были изучены:
+
+- bash-скрипты
+- циклы и условия
+- семафоры
+- `$RANDOM`
+- перенаправление ввода-вывода
+
+---
+
+# Спасибо за внимание!
