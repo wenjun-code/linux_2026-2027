@@ -1,0 +1,136 @@
+---
+title: "Лабораторная работа №10"
+subtitle: "Текстовой редактор vi"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-04-17"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Освоение работы в Linux  
+- Изучение редактора vi  
+- Практика редактирования файлов  
+
+---
+
+## Подготовка
+
+![](images/lab10_01_pwd.png)
+
+    cd /home/hhl/work/study/2026-2027/Операционные\ системы/os-intro/labs/lab10
+    pwd
+
+---
+
+## Создание файла
+
+![](images/lab10_02_vi_hello.png)
+
+    vi hello.sh
+
+- Создание нового файла  
+
+---
+
+## Ввод текста
+
+![](images/lab10_03_insert_mode.png)
+
+    #!/bin/bash
+    HELL=Hello
+    function hello {
+    LOCAL HELLO=World
+    echo $HELLO
+    }
+    echo $HELLO
+    hello
+
+- Режим вставки (`i`)  
+
+---
+
+## Сохранение и права
+
+![](images/lab10_04_chmod.png)
+
+    chmod +x hello.sh
+
+- Esc → :wq  
+
+---
+
+## Редактирование
+
+![](images/lab10_05_change_HELL.png)
+
+- cw — изменение слова  
+
+![](images/lab10_06_change_LOCAL.png)
+
+- dw + i — редактирование  
+
+---
+
+## Работа со строками
+
+![](images/lab10_07_insert_line.png)
+
+- G — конец файла  
+- o — новая строка  
+
+---
+
+## Удаление и отмена
+
+![](images/lab10_08_delete_line.png)
+
+![](images/lab10_09_undo.png)
+
+- dd — удалить  
+- u — отменить  
+
+---
+
+## Проверка
+
+![](images/lab10_10_cat.png)
+
+    cat hello.sh
+
+---
+
+## Запуск
+
+![](images/lab10_11_run.png)
+
+    ./hello.sh
+
+- Ожидаемый вывод:
+  Hello  
+  World  
+  Hello  
+
+---
+
+## Выводы
+
+- Освоен редактор vi  
+- Изучены режимы работы  
+- Выполнено редактирование файла  
+- Получены навыки работы в Linux  
+
+---
+
+## Спасибо за внимание!
