@@ -1,0 +1,156 @@
+---
+title: "Лабораторная работа №12"
+subtitle: "Программирование в командном процессоре UNIX"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-04-29"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Освоить основы bash  
+- Написание скриптов  
+- Работа с аргументами  
+- Имитация `ls`  
+- Подсчёт файлов  
+
+---
+
+## Рабочий каталог
+
+```
+/home/hhl/work/study/2026-2027/Операционные системы/os-intro/labs/lab12/scripts
+```
+
+---
+
+## Скрипт резервного копирования
+
+```bash
+#!/bin/bash
+SCRIPT_PATH=$(realpath "$0")
+SCRIPT_NAME=$(basename "$SCRIPT_PATH")
+
+BACKUP_DIR="$HOME/backup"
+mkdir -p "$BACKUP_DIR"
+
+BACKUP_FILE="${BACKUP_DIR}/${SCRIPT_NAME}_$(date +%Y%m%d_%H%M%S).tar.gz"
+
+tar -czf "$BACKUP_FILE" -C "$(dirname "$SCRIPT_PATH")" "$SCRIPT_NAME"
+```
+
+- Архивирует сам себя  
+- Сохраняет в `~/backup`  
+
+---
+
+## Результат backup
+
+![](images/lab12_01_backup_run.png)
+
+![](images/lab12_02_backup_ls.png)
+
+---
+
+## Обработка аргументов
+
+```bash
+#!/bin/bash
+echo "Всего аргументов: $#"
+
+for arg in "$@"; do
+    echo "$arg"
+done
+```
+
+- Использование `$@`  
+- Поддержка любого числа аргументов  
+
+---
+
+## Результат аргументов
+
+![](images/lab12_03_print_args.png)
+
+---
+
+## Аналог команды ls
+
+```bash
+#!/bin/bash
+
+for item in *; do
+    perm=$(stat -c "%A" "$item")
+    echo "$perm $item"
+done
+```
+
+- Без `ls`  
+- Используется `stat`  
+
+---
+
+## Сравнение с ls
+
+![](images/lab12_04_myls_vs_ls.png)
+
+---
+
+## Подсчёт файлов
+
+```bash
+#!/bin/bash
+
+count=$(find "$2" -maxdepth 1 -type f -name "*$1" | wc -l)
+echo "$count"
+```
+
+- Используется `find`  
+- Подсчёт по расширению  
+
+---
+
+## Тестирование
+
+```bash
+touch ~/test1.txt ~/test2.txt ~/test3.doc
+./count_files.sh .txt ~/
+```
+
+![](images/lab12_05_prepare_files.png)
+
+![](images/lab12_06_count_files_run.png)
+
+---
+
+## Контрольные вопросы
+
+- Shell — интерфейс ОС  
+- POSIX — стандарт  
+- Переменные: `var=1`  
+- Аргументы: `$1`, `$@`  
+- Метасимволы: `* ? |`  
+
+---
+
+## Выводы
+
+- Освоен bash  
+- Созданы 4 скрипта  
+- Автоматизация задач  
+- Работа с файлами  
+
+---
+
+## Спасибо за внимание!
