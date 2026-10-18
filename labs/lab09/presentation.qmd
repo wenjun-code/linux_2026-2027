@@ -1,0 +1,164 @@
+---
+title: "Лабораторная работа №9"
+subtitle: "Командная оболочка Midnight Commander"
+author: "Ван Хаоцзянь"
+institute: "РУДН"
+date: "2026-04-07"
+format:
+  beamer:
+    theme: "Madrid"
+    colortheme: "default"
+    fonttheme: "professionalfonts"
+    toc: false
+    slide-level: 2
+    mainfont: "DejaVu Serif"
+    sansfont: "DejaVu Sans"
+    monofont: "DejaVu Sans Mono"
+    lang: ru
+---
+
+## Цель работы
+
+- Освоение Midnight Commander  
+- Работа с файлами и каталогами  
+- Управление панелями  
+- Использование встроенного редактора  
+
+---
+
+## Запуск mc
+
+![](images/mc_main.png)
+
+~~~bash
+cd ~/lab09
+mc
+~~~
+
+- Двухпанельный интерфейс  
+
+---
+
+## Управление панелями
+
+![](images/mc_swap_panels.png)
+
+~~~bash
+Ctrl + u
+~~~
+
+- Смена панелей  
+
+![](images/mc_info_mode.png)
+
+- Режим "Информация"  
+
+![](images/mc_tree_mode.png)
+
+- Режим "Дерево"  
+
+---
+
+## Сравнение каталогов
+
+~~~bash
+Ctrl + x затем d
+~~~
+
+- Подсветка различий  
+
+---
+
+## Операции с файлами
+
+![](images/mc_copy_dialog.png)
+
+~~~bash
+F5 — копирование  
+F6 — переименование  
+F7 — создание каталога  
+F8 — удаление  
+~~~
+
+- Основные действия  
+
+---
+
+## Права доступа
+
+![](images/mc_chmod_dialog.png)
+
+~~~bash
+Ctrl + x затем c
+~~~
+
+- Изменение прав  
+
+---
+
+## Поиск и история
+
+![](images/mc_search_dialog.png)
+
+~~~bash
+F9 → Команда → Поиск файла
+~~~
+
+- Поиск  
+
+![](images/mc_command_history.png)
+
+- История команд  
+
+---
+
+## Настройки
+
+![](images/mc_settings_config.png)
+
+- Конфигурация интерфейса  
+
+---
+
+## Редактор
+
+![](images/mc_editor_text.png)
+
+~~~bash
+F4
+~~~
+
+- Открытие файла  
+
+![](images/mc_editor_cut_paste.png)
+
+- Редактирование текста  
+
+---
+
+## Подсветка
+
+![](images/mc_editor_syntax.png)
+
+~~~c
+#include <stdio.h>
+~~~
+
+- Подсветка кода  
+
+---
+
+## Выход
+
+~~~bash
+F10
+~~~
+
+---
+
+## Выводы
+
+- Освоен Midnight Commander  
+- Изучены панели и режимы  
+- Освоены операции с файлами  
+- Изучен встроенный редактор  
