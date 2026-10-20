@@ -5,6 +5,7 @@ author:
 title: "Лабораторная работа № 1"
 subtitle: "Установка ОС Linux"
 date: 2026-10-20
+institute: "РУДН"
 ---
 
 # Информация
