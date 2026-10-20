@@ -5,6 +5,7 @@ author:
 title: "Лабораторная работа № 9"
 subtitle: "Командная оболочка Midnight Commander"
 date: 2026-10-20
+institute: "РУДН"
 ---
 
 # Информация
