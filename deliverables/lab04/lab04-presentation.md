@@ -1,0 +1,86 @@
+# Лабораторная работа № 4
+Чжан Вэньцзюнь
+2026-10-20
+
+# Информация
+
+## Докладчик
+
+- Чжан Вэньцзюнь
+- зачётная книжка № 1132259051
+- Российский университет дружбы народов им. П. Лумумбы
+
+## Цель работы
+
+- Освоить рабочий процесс Gitflow
+- Изучить семантическое версионирование
+- Настроить общепринятые коммиты
+- Преобразовать репозиторий в репозиторий с git-flow
+
+# Выполнение работы
+
+## Установка программного обеспечения
+
+``` bash
+sudo dnf -y copr enable elegos/gitflow
+sudo dnf -y install gitflow
+sudo dnf -y install nodejs24 nodejs24-npm pnpm
+```
+
+<img src="image/l4-tools.png" style="width:70.0%" />
+
+## Общепринятые коммиты
+
+``` bash
+pnpm setup
+npm install -g commitizen standard-changelog
+```
+
+- `git-cz` — форматирование сообщений коммитов
+- `standard-changelog` — журнал изменений
+
+## Модель ветвления Gitflow
+
+- `master` — официальная история релизов
+- `develop` — объединение всех функций
+- `feature/*` — отдельные функции
+- `release/*` — подготовка выпуска
+- `hotfix/*` — срочные исправления
+
+``` bash
+git flow init -d
+```
+
+## Выпуск версии 1.0.0
+
+``` bash
+git flow release start 1.0.0
+git commit -m 'chore(release): prepare 1.0.0'
+git flow release finish -m 'chore(release): 1.0.0' 1.0.0
+```
+
+<img src="image/l4-pkg.png" style="width:70.0%" />
+
+## Срочное исправление 1.0.1
+
+``` bash
+git flow hotfix start 1.0.1
+git commit -am 'fix: correct readme'
+git flow hotfix finish -m 'fix: 1.0.1' 1.0.1
+```
+
+<img src="image/l4-graph.png" style="width:70.0%" />
+
+# Заключение
+
+## Выводы
+
+- Освоен рабочий процесс Gitflow
+- Изучено семантическое версионирование
+- Сообщения коммитов оформлены по Conventional Commits
+- Созданы выпуски 1.0.0 и 1.0.1
+- Репозиторий преобразован в репозиторий с git-flow
+
+## Спасибо за внимание!
+
+Вопросы?
