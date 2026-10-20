@@ -1,0 +1,86 @@
+---
+author:
+  name: Чжан Вэньцзюнь
+  affiliation: Российский университет дружбы народов
+title: "Лабораторная работа № 7"
+subtitle: "Файловая система Linux. Права доступа"
+date: 2026-10-20
+---
+
+# Информация
+
+## Докладчик
+
+- Чжан Вэньцзюнь
+- зачётная книжка № 1132259051
+- Российский университет дружбы народов им. П. Лумумбы
+
+## Цель работы
+
+- Освоить команды работы с файлами и каталогами
+- Изучить права доступа
+- Научиться изменять права командой chmod
+
+# Выполнение работы
+
+## Копирование и перемещение
+
+```bash
+cp /usr/include/sys/io.h ~/equipment
+mkdir ~/ski.plases
+mv ~/equipment ~/ski.plases/
+mv ~/ski.plases/equipment ~/ski.plases/equiplist
+```
+
+## Структура каталогов
+
+```bash
+mkdir ~/ski.plases/equipment
+mv ~/ski.plases/equiplist ~/ski.plases/equiplist2 ~/ski.plases/equipment/
+mkdir ~/newdir && mv ~/newdir ~/ski.plases/plans
+```
+
+## Права доступа и chmod
+
+| Объект | Права | Число |
+|--------|-------|-------|
+| australia | drwxr--r-- | 744 |
+| play | drwx--x--x | 711 |
+| my_os | -r-xr--r-- | 544 |
+| feathers | -rw-rw-r-- | 664 |
+
+![](image/l7-terminal.png){width=70%}
+
+## Эксперименты с правами
+
+```bash
+chmod u-r ~/perm/play/feathers
+cat ~/perm/play/feathers      # Отказано в доступе
+cp ~/perm/play/feathers /tmp/x # Отказано в доступе
+```
+
+```bash
+chmod u-x ~/perm/play
+cd ~/perm/play                # Отказано в доступе
+```
+
+## Руководства mount, fsck, mkfs
+
+```bash
+man mount
+man fsck
+man mkfs
+```
+
+# Заключение
+
+## Выводы
+
+- Освоены команды cp, mv, rm для файлов и каталогов
+- Изучены права доступа и восьмеричная запись
+- Подтверждено влияние прав r и x на файлы и каталоги
+- Изучены страницы руководства mount, fsck, mkfs
+
+## Спасибо за внимание!
+
+Вопросы?
